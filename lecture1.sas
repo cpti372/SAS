@@ -1,0 +1,25 @@
+DATA SCORE1;
+	INfILE "/folders/myshortcuts/전산통계/score1.txt" ;
+	INPUT GEN $KOR MAT ENG SCI;
+
+
+DATA SCORE2;
+	INfILE "/folders/myshortcuts/전산통계/score2.txt" ;
+	INPUT GEN $KOR MAT ENG SCI;
+	
+DATA STA;
+	SET SCORE1 SCORE2;
+	TOT=KOR*2+MAT*4+ENG*2+SCI*2;
+	IF TOT>=800 THEN NOTE='GREAT';
+	ELSE IF TOT>=600 THEN NOTE='GOOD';
+	ELSE IF TOT>=400 THEN NOTE='OK';
+	ELSE NOTE='F';
+	
+DATA RES;
+	SET STA;
+		KEEP MAT TOT NOTE;
+
+PROC PRINT DATA=RES;
+RUN;
+	
+	
